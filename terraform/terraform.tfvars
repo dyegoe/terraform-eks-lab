@@ -4,19 +4,44 @@ aws_profile = "default"
 
 ##### Project
 project = {
-  name      = "lab-eks"
+  name      = "my-lab"
   zone_name = "aws.dyego.com.br"
   default_tags = {
     "Terraform"   = "true"
     "Environment" = "lab"
-    "Project"     = "lab-eks"
   }
 }
 
 ##### VPC
 vpc = {
   cidr            = "10.85.0.0/16"
-  azs             = ["a", "b", "c"] # it will be appended to the region name
+  azs             = ["a", "b", "c"]
   private_subnets = ["10.85.0.0/18", "10.85.64.0/18", "10.85.128.0/18"]
   public_subnets  = ["10.85.253.0/24", "10.85.254.0/24", "10.85.255.0/24"]
+}
+
+##### EKS
+eks = {
+  cluster_name                    = "cluster1"
+  cluster_version                 = "1.26"
+  cluster_endpoint_private_access = true
+  cluster_endpoint_public_access  = true
+}
+
+eks_managed_node_groups = {
+  defaults = {
+    instance_types = ["t3.medium"]
+  }
+  nodes = [
+    {
+      name          = "nodes"
+      min_size      = 1
+      max_size      = 3
+      desired_size  = 1
+      capacity_type = "SPOT"
+      tags = {
+        example = "true"
+      }
+    }
+  ]
 }
