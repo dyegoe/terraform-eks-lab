@@ -16,13 +16,9 @@ provider "aws" {
   profile = var.aws_profile
 
   default_tags {
-    tags = var.project.default_tags
+    tags = merge(
+      var.project.default_tags,
+      { Project = var.project.name }
+    )
   }
-}
-
-data "aws_region" "current" {}
-
-locals {
-  resource_prefix = var.project.name
-  azs             = formatlist("${data.aws_region.current.name}%s", var.vpc.azs)
 }

@@ -49,3 +49,33 @@ variable "vpc" {
     error_message = "Number of public subnets must match the number of availability zones"
   }
 }
+
+##### EKS
+variable "eks" {
+  type = object({
+    cluster_name                    = string
+    cluster_version                 = string
+    cluster_endpoint_private_access = bool
+    cluster_endpoint_public_access  = bool
+    additional_tags                 = optional(map(string))
+  })
+  description = "A object containing EKS information. The additional tags are applied to all resources for the EKS cluster."
+}
+
+variable "eks_managed_node_groups" {
+  type = object({
+    defaults = object({
+      instance_types = list(string)
+    })
+    nodes = list(object({
+      name           = string
+      instance_types = optional(list(string))
+      min_size       = optional(number)
+      max_size       = optional(number)
+      desired_size   = optional(number)
+      capacity_type  = optional(string)
+      tags           = optional(map(string))
+    }))
+  })
+  description = "A list of objects containing EKS node group information. The additional tags are applied to all resources for the EKS node group."
+}

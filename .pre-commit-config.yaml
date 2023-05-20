@@ -15,3 +15,9 @@ repos:
           - --hook-config=--path-to-file=README.md
           - --hook-config=--create-file-if-not-exist=true
       - id: terraform_validate
+      - id: terraform_providers_lock
+        args:
+          - --args=-platform=windows_amd64
+          - --args=-platform=linux_amd64
+          - --args=-platform=darwin_amd64
+          - --args=-platform=darwin_arm64
