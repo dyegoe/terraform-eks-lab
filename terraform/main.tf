@@ -1,7 +1,7 @@
 /**
- * # terraform-eks-lab
+ * # terraform-eks-lab/terraform
  *
- * This module creates a VPC with public and private subnets across multiple availability zones. It also creates a NAT gateway and an internet gateway for the public subnets. The private subnets have a route to the NAT gateway to allow internet access.
+ * This repository will create a VPC with public and private subnets across multiple availability zones. It also creates a NAT gateway and an internet gateway for the public subnets. The private subnets have a route to the NAT gateway to allow internet access.
  */
 
 terraform {
