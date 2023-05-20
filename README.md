@@ -2,7 +2,7 @@
 
 Terraform EKS Lab is a project to create a lab environment for learning EKS.
 
-## Installation
+## Usage
 
 ### Requirements
 
@@ -15,14 +15,6 @@ cd terraform/
 terraform init
 terraform apply
 ```
-
-## Usage
-
-TODO: Write usage instructions
-
-## Support
-
-TODO: Describe support options
 
 ## Contributing
 
