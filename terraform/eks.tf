@@ -17,5 +17,5 @@ module "eks" {
 
   eks_managed_node_groups = local.eks_managed_node_groups
 
-  tags = try(var.eks.additional_tags, {})
+  tags = try(var.eks.tags, {})
 }

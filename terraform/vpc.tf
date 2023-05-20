@@ -22,5 +22,5 @@ module "vpc" {
   reuse_nat_ips       = true
   external_nat_ip_ids = aws_eip.nat.*.id
 
-  tags = try(var.vpc.additional_tags, {})
+  tags = try(var.vpc.tags, {})
 }
