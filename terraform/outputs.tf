@@ -17,3 +17,8 @@ output "cluster_endpoint" {
   value       = module.eks.cluster_endpoint
   description = "value of the cluster_endpoint"
 }
+
+output "cluster_certificate_authority_data" {
+  value       = module.eks.cluster_certificate_authority_data
+  description = "value of the cluster_certificate_authority_data"
+}

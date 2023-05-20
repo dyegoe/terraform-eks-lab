@@ -30,9 +30,9 @@ variable "vpc" {
     public_subnets      = list(string)
     private_subnet_tags = optional(map(string))
     public_subnet_tags  = optional(map(string))
-    additional_tags     = optional(map(string))
+    tags                = optional(map(string))
   })
-  description = "A object containing VPC information. AZs must be a letter that represents the AZ. For example: [\"a\", \"b\", \"c\"]. Number of private/public subnets must match the number of availability zones. The additional tags are applied to all resources for the VPC."
+  description = "A object containing VPC information. AZs must be a letter that represents the AZ. For example: [\"a\", \"b\", \"c\"]. Number of private/public subnets must match the number of availability zones. Tags are applied to all resources for the VPC."
 
   validation {
     condition     = alltrue([for az in var.vpc.azs : can(regex("^[a-z]$", az))])
@@ -57,9 +57,9 @@ variable "eks" {
     cluster_version                 = string
     cluster_endpoint_private_access = bool
     cluster_endpoint_public_access  = bool
-    additional_tags                 = optional(map(string))
+    tags                            = optional(map(string))
   })
-  description = "A object containing EKS information. The additional tags are applied to all resources for the EKS cluster."
+  description = "A object containing EKS information. Tags are applied to all resources for the EKS cluster."
 }
 
 variable "eks_managed_node_groups" {
@@ -77,5 +77,5 @@ variable "eks_managed_node_groups" {
       tags           = optional(map(string))
     }))
   })
-  description = "A list of objects containing EKS node group information. The additional tags are applied to all resources for the EKS node group."
+  description = "A list of objects containing EKS node group information. Tags are applied to all resources for the EKS node group."
 }
