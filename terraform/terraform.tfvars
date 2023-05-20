@@ -7,8 +7,9 @@ project = {
   name      = "my-lab"
   zone_name = "aws.dyego.com.br"
   default_tags = {
-    "Terraform"   = "true"
-    "Environment" = "lab"
+    Terraform   = "true"
+    Environment = "lab"
+    Team        = "Platform Engineering"
   }
 }
 
@@ -22,7 +23,7 @@ vpc = {
 
 ##### EKS
 eks = {
-  cluster_name                    = "cluster1"
+  cluster_name                    = "eun1-1"
   cluster_version                 = "1.26"
   cluster_endpoint_private_access = true
   cluster_endpoint_public_access  = true
@@ -30,7 +31,7 @@ eks = {
 
 eks_managed_node_groups = {
   defaults = {
-    instance_types = ["t3.medium"]
+    instance_types = ["t3.small"]
   }
   nodes = [
     {

@@ -44,6 +44,7 @@ It will also create a VPC with public and private subnets across multiple availa
 
 | Name | Description |
 |------|-------------|
+| aws\_eks\_update\_kubeconfig | the command to update the kubeconfig |
 | cluster\_certificate\_authority\_data | value of the cluster\_certificate\_authority\_data |
 | cluster\_endpoint | value of the cluster\_endpoint |
 | cluster\_name | value of the cluster\_name |
