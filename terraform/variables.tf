@@ -79,3 +79,24 @@ variable "eks_managed_node_groups" {
   })
   description = "A list of objects containing EKS node group information. Tags are applied to all resources for the EKS node group."
 }
+
+variable "eks_user_policies" {
+  type = map(list(
+    object({
+      actions   = list(string)
+      resources = list(string)
+      tags      = optional(map(string))
+    })
+  ))
+  description = "A map of lists of objects containing EKS user policy information. Tags are applied to all resources for the EKS user policy."
+}
+
+variable "eks_users" {
+  type = list(object({
+    name       = string
+    policies   = list(string)
+    k8s_groups = list(string)
+    tags       = optional(map(string))
+  }))
+  description = "A list of objects containing EKS user information. Tags are applied to all resources for the EKS user."
+}

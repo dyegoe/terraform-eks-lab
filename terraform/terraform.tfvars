@@ -46,3 +46,32 @@ eks_managed_node_groups = {
     }
   ]
 }
+
+eks_user_policies = {
+  admin = [
+    { actions = ["eks:*"], resources = ["*"] }
+  ]
+  readonly = [
+    {
+      actions = [
+        "eks:ListFargateProfiles",
+        "eks:DescribeNodegroup",
+        "eks:ListNodegroups",
+        "eks:DescribeFargateProfile",
+        "eks:ListTagsForResource",
+        "eks:ListUpdates",
+        "eks:DescribeUpdate",
+        "eks:DescribeCluster",
+        "eks:ListClusters",
+        "eks:AccessKubernetesApi",
+        "eks:GetParameter"
+      ]
+      resources = ["*"]
+    }
+  ]
+}
+
+eks_users = [
+  { name = "admin", policies = ["admin"], k8s_groups = ["system:master"] },
+  { name = "readonly", policies = ["readonly"], k8s_groups = ["system:readonly"] },
+]
