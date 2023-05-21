@@ -47,7 +47,7 @@ eks_managed_node_groups = {
   ]
 }
 
-eks_user_groups = {
+eks_user_policies = {
   admin = [
     { actions = ["eks:*"], resources = ["*"] }
   ]
@@ -72,7 +72,7 @@ eks_user_groups = {
 }
 
 eks_users = [
-  { name = "admin", groups = ["admin"] },
-  { name = "readonly", groups = ["readonly"] },
-  { name = "test", groups = ["admin", "readonly"] }
+  { name = "admin", policies = ["admin"], k8s_groups = ["system:master"] },
+  { name = "readonly", policies = ["readonly"], k8s_groups = ["system:readonly"] },
+  { name = "test", policies = ["admin", "readonly"], k8s_groups = ["system:master", "system:readonly"] },
 ]

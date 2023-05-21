@@ -18,6 +18,13 @@ module "eks" {
   eks_managed_node_groups = local.eks_managed_node_groups
 
   manage_aws_auth_configmap = true
+  aws_auth_roles = [
+    for user in var.eks_users : {
+      username = user.name
+      groups   = user.k8s_groups
+      rolearn  = aws_iam_role.eks_user[user.name].arn
+    }
+  ]
 
   tags = try(var.eks.tags, {})
 }

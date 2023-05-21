@@ -10,8 +10,8 @@ data "aws_iam_policy_document" "assume_policy" {
   }
 }
 
-data "aws_iam_policy_document" "eks_user_groups" {
-  for_each = var.eks_user_groups
+data "aws_iam_policy_document" "eks_user_policies" {
+  for_each = var.eks_user_policies
 
   dynamic "statement" {
     for_each = each.value
@@ -22,13 +22,13 @@ data "aws_iam_policy_document" "eks_user_groups" {
   }
 }
 
-resource "aws_iam_policy" "eks_user_groups" {
-  for_each = var.eks_user_groups
+resource "aws_iam_policy" "eks_user_policies" {
+  for_each = var.eks_user_policies
 
   name        = "${local.resource_prefix}-${var.eks.cluster_name}-${each.key}"
-  description = "Policy for ${each.key} user"
   path        = "${local.resource_prefix}/eks/${var.eks.cluster_name}/"
-  policy      = data.aws_iam_policy_document.eks_user_groups[each.key].json
+  description = "Policy managed by Terraform - aws_iam_policy.eks_user_policies - var.eks_user_policies"
+  policy      = data.aws_iam_policy_document.eks_user_policies[each.key].json
   tags        = try(each.value.tags, {})
 }
 
@@ -36,7 +36,8 @@ resource "aws_iam_role" "eks_user" {
   for_each = { for user in var.eks_users : user.name => user }
 
   name               = "${local.resource_prefix}-${var.eks.cluster_name}-${each.key}"
-  description        = "Role for ${each.key} user"
+  path               = "${local.resource_prefix}/eks/${var.eks.cluster_name}/"
+  description        = "Role managed by Terraform - aws_iam_role.eks_user - var.eks_users"
   assume_role_policy = data.aws_iam_policy_document.assume_policy.json
   tags               = try(each.value.tags, {})
 }
@@ -46,15 +47,15 @@ resource "aws_iam_role_policy_attachment" "eks_user" {
     for u in flatten(
       [
         for user in var.eks_users : [
-          for group in user.groups : {
-            name  = user.name
-            group = group
+          for policy in user.policies : {
+            name   = user.name
+            policy = policy
           }
         ]
       ]
-    ) : "${u.name}_${u.group}" => u
+    ) : "${u.name}_${u.policy}" => u
   }
 
   role       = aws_iam_role.eks_user[each.value.name].name
-  policy_arn = aws_iam_policy.eks_user_groups[each.value.group].arn
+  policy_arn = aws_iam_policy.eks_user_policies[each.value.policy].arn
 }
