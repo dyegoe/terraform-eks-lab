@@ -43,7 +43,7 @@ resource "aws_iam_role" "eks_user" {
 
 resource "aws_iam_role_policy_attachment" "eks_user" {
   for_each = {
-    for i in flatten(
+    for u in flatten(
       [
         for user in var.eks_users : [
           for group in user.groups : {
@@ -52,7 +52,7 @@ resource "aws_iam_role_policy_attachment" "eks_user" {
           }
         ]
       ]
-    ) : "${i.name}_${i.group}" => i
+    ) : "${u.name}_${u.group}" => u
   }
 
   role       = aws_iam_role.eks_user[each.value.name].name
