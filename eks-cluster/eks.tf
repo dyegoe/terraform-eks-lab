@@ -2,7 +2,7 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
 
-  cluster_name                    = "${local.resource_prefix}-${var.eks.cluster_name}-eks"
+  cluster_name                    = local.cluster_name
   cluster_version                 = var.eks.cluster_version
   cluster_endpoint_private_access = var.eks.cluster_endpoint_private_access
   cluster_endpoint_public_access  = var.eks.cluster_endpoint_public_access

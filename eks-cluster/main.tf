@@ -45,4 +45,5 @@ data "aws_caller_identity" "current" {}
 locals {
   resource_prefix = var.project.name
   azs             = formatlist("${data.aws_region.current.name}%s", var.vpc.azs)
+  cluster_name    = "${local.resource_prefix}-${var.eks.cluster_name}-eks"
 }
