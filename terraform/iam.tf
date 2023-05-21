@@ -14,21 +14,6 @@ module "ebs_csi_irsa_role" {
   }
 }
 
-module "load_balancer_controller_irsa_role" {
-  source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
-  version = "~> 5.19"
-
-  role_name                              = "${local.resource_prefix}-${var.eks.cluster_name}-load-balancer-controller"
-  attach_load_balancer_controller_policy = true
-
-  oidc_providers = {
-    (module.eks.cluster_name) = {
-      provider_arn               = module.eks.oidc_provider_arn
-      namespace_service_accounts = ["kube-system:aws-load-balancer-controller"]
-    }
-  }
-}
-
 ##### EKS Users
 data "aws_iam_policy_document" "assume_policy" {
   statement {
