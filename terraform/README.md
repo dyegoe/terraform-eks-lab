@@ -28,6 +28,9 @@ It will also create a VPC with public and private subnets across multiple availa
 | Name | Type |
 |------|------|
 | [aws_eip.nat](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/eip) | resource |
+| [aws_iam_policy.eks_user_groups](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_policy) | resource |
+| [aws_iam_role.eks_user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role) | resource |
+| [aws_iam_role_policy_attachment.eks_user](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_role_policy_attachment) | resource |
 
 ## Inputs
 
@@ -37,6 +40,8 @@ It will also create a VPC with public and private subnets across multiple availa
 | aws\_region | AWS region to deploy to. | `string` | `"us-east-1"` | no |
 | eks | A object containing EKS information. Tags are applied to all resources for the EKS cluster. | ```object({ cluster_name = string cluster_version = string cluster_endpoint_private_access = bool cluster_endpoint_public_access = bool tags = optional(map(string)) })``` | n/a | yes |
 | eks\_managed\_node\_groups | A list of objects containing EKS node group information. Tags are applied to all resources for the EKS node group. | ```object({ defaults = object({ instance_types = list(string) }) nodes = list(object({ name = string instance_types = optional(list(string)) min_size = optional(number) max_size = optional(number) desired_size = optional(number) capacity_type = optional(string) tags = optional(map(string)) })) })``` | n/a | yes |
+| eks\_user\_groups | A map of lists of objects containing EKS user group information. The key is the name of the user group. Tags are applied to all resources for the EKS user group. | ```map(list( object({ actions = list(string) resources = list(string) tags = optional(map(string)) }) ))``` | n/a | yes |
+| eks\_users | n/a | ```list(object({ name = string groups = list(string) tags = optional(map(string)) }))``` | n/a | yes |
 | project | A object containing project information. The zone\_name must be a Route53 zone that you own and is already configured in your AWS account. The project name is used as a prefix for all resources. The default tags are applied to all resources. | ```object({ name = string default_tags = map(string) zone_name = string })``` | n/a | yes |
 | vpc | A object containing VPC information. AZs must be a letter that represents the AZ. For example: ["a", "b", "c"]. Number of private/public subnets must match the number of availability zones. Tags are applied to all resources for the VPC. | ```object({ cidr = string azs = list(string) private_subnets = list(string) public_subnets = list(string) private_subnet_tags = optional(map(string)) public_subnet_tags = optional(map(string)) tags = optional(map(string)) })``` | n/a | yes |
 

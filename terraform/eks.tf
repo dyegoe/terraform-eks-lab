@@ -17,5 +17,7 @@ module "eks" {
 
   eks_managed_node_groups = local.eks_managed_node_groups
 
+  manage_aws_auth_configmap = true
+
   tags = try(var.eks.tags, {})
 }

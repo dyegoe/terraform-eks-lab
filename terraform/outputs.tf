@@ -24,6 +24,6 @@ output "cluster_certificate_authority_data" {
 }
 
 output "aws_eks_update_kubeconfig" {
-  value       = "aws --region ${data.aws_region.current} eks update-kubeconfig --name ${module.eks.cluster_name}"
+  value       = "aws --region ${data.aws_region.current.name} eks update-kubeconfig --name ${module.eks.cluster_name}"
   description = "the command to update the kubeconfig"
 }
