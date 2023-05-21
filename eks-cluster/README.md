@@ -1,4 +1,4 @@
-# terraform-eks-lab/terraform
+# terraform-eks-lab/eks-cluster
 
 This repository contains Terraform code to create an EKS cluster with managed node groups.
 It will also create a VPC with public and private subnets across multiple availability zones.
