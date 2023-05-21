@@ -51,10 +51,14 @@ It will also create a VPC with public and private subnets across multiple availa
 
 | Name | Description |
 |------|-------------|
+| aws\_profile | current aws profile |
 | aws\_region | current aws region |
 | cluster\_certificate\_authority\_data | EKS cluster certificate authority data |
 | cluster\_endpoint | EKS cluster endpoint |
 | cluster\_name | EKS cluster name |
+| cluster\_oidc\_provider\_arn | EKS cluster OIDC provider ARN |
 | cluster\_version | EKS cluster version |
 | eks\_users | list of eks users and their arns |
+| project | project information |
+| resource\_prefix | resource prefix |
 | update\_kubeconfig | the command to update the kubeconfig |

@@ -1,5 +1,10 @@
+output "aws_profile" {
+  value       = var.aws_profile
+  description = "current aws profile"
+}
+
 output "aws_region" {
-  value       = data.aws_region.current.name
+  value       = var.aws_region
   description = "current aws region"
 }
 
@@ -23,6 +28,11 @@ output "cluster_certificate_authority_data" {
   description = "EKS cluster certificate authority data"
 }
 
+output "cluster_oidc_provider_arn" {
+  value       = module.eks.oidc_provider_arn
+  description = "EKS cluster OIDC provider ARN"
+}
+
 output "eks_users" {
   value = [
     for k, v in aws_iam_role.eks_user : {
@@ -31,6 +41,16 @@ output "eks_users" {
     }
   ]
   description = "list of eks users and their arns"
+}
+
+output "project" {
+  value       = var.project
+  description = "project information"
+}
+
+output "resource_prefix" {
+  value       = local.resource_prefix
+  description = "resource prefix"
 }
 
 output "update_kubeconfig" {

@@ -13,7 +13,11 @@ Terraform EKS Lab is a project to create a lab environment for learning EKS.
 ### Setup
 
 ```bash
-cd terraform/
+cd eks-cluster/
+terraform init
+terraform apply
+
+cd ../kubernetes/
 terraform init
 terraform apply
 ```
@@ -23,6 +27,7 @@ terraform apply
 You can use the terraform output to fill the command, for example:
 
 ```bash
+cd ../eks-cluster/
 aws --region $(terraform output -raw region) eks update-kubeconfig --name $(terraform output -raw cluster_name)
 ```
 
