@@ -1,26 +1,26 @@
 output "aws_region" {
   value       = data.aws_region.current.name
-  description = "value of the region"
+  description = "current aws region"
 }
 
 output "cluster_name" {
   value       = module.eks.cluster_name
-  description = "value of the cluster_name"
+  description = "EKS cluster name"
 }
 
 output "cluster_version" {
   value       = module.eks.cluster_version
-  description = "value of the cluster_version"
+  description = "EKS cluster version"
 }
 
 output "cluster_endpoint" {
   value       = module.eks.cluster_endpoint
-  description = "value of the cluster_endpoint"
+  description = "EKS cluster endpoint"
 }
 
 output "cluster_certificate_authority_data" {
   value       = module.eks.cluster_certificate_authority_data
-  description = "value of the cluster_certificate_authority_data"
+  description = "EKS cluster certificate authority data"
 }
 
 output "eks_users" {
@@ -30,6 +30,7 @@ output "eks_users" {
       arn  = v.arn
     }
   ]
+  description = "list of eks users and their arns"
 }
 
 output "update_kubeconfig" {
