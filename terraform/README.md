@@ -49,10 +49,10 @@ It will also create a VPC with public and private subnets across multiple availa
 
 | Name | Description |
 |------|-------------|
-| aws\_eks\_update\_kubeconfig | the command to update the kubeconfig |
+| aws\_region | value of the region |
 | cluster\_certificate\_authority\_data | value of the cluster\_certificate\_authority\_data |
 | cluster\_endpoint | value of the cluster\_endpoint |
 | cluster\_name | value of the cluster\_name |
 | cluster\_version | value of the cluster\_version |
 | eks\_users | n/a |
-| region | value of the region |
+| update\_kubeconfig | the command to update the kubeconfig |
