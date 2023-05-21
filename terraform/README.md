@@ -20,7 +20,7 @@ It will also create a VPC with public and private subnets across multiple availa
 
 | Name | Source | Version |
 |------|--------|---------|
-| eks | terraform-aws-modules/eks/aws | ~> 19.0 |
+| eks | terraform-aws-modules/eks/aws | ~> 19.14.0 |
 | vpc | terraform-aws-modules/vpc/aws | 4.0.2 |
 
 ## Resources
@@ -39,7 +39,7 @@ It will also create a VPC with public and private subnets across multiple availa
 | aws\_profile | AWS profile to use. | `string` | `"default"` | no |
 | aws\_region | AWS region to deploy to. | `string` | `"us-east-1"` | no |
 | eks | A object containing EKS information. Tags are applied to all resources for the EKS cluster. | ```object({ cluster_name = string cluster_version = string cluster_endpoint_private_access = bool cluster_endpoint_public_access = bool tags = optional(map(string)) })``` | n/a | yes |
-| eks\_managed\_node\_groups | A list of objects containing EKS node group information. Tags are applied to all resources for the EKS node group. | ```object({ defaults = object({ instance_types = list(string) }) nodes = list(object({ name = string instance_types = optional(list(string)) min_size = optional(number) max_size = optional(number) desired_size = optional(number) capacity_type = optional(string) tags = optional(map(string)) })) })``` | n/a | yes |
+| eks\_managed\_node\_groups | A object containing EKS managed node group information. `defaults` and `nodes` are objects. The `defaults` are applied to all node groups. The `nodes` key is used as name if name is not provided. | ```object({ defaults = any nodes = any })``` | n/a | yes |
 | eks\_user\_policies | A map of lists of objects containing EKS user policy information. Tags are applied to all resources for the EKS user policy. | ```map(list( object({ actions = list(string) resources = list(string) tags = optional(map(string)) }) ))``` | n/a | yes |
 | eks\_users | A list of objects containing EKS user information. Tags are applied to all resources for the EKS user. | ```list(object({ name = string policies = list(string) k8s_groups = list(string) tags = optional(map(string)) }))``` | n/a | yes |
 | project | A object containing project information. The zone\_name must be a Route53 zone that you own and is already configured in your AWS account. The project name is used as a prefix for all resources. The default tags are applied to all resources. | ```object({ name = string default_tags = map(string) zone_name = string })``` | n/a | yes |
