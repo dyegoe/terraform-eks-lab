@@ -54,4 +54,5 @@ It will also create a VPC with public and private subnets across multiple availa
 | cluster\_endpoint | value of the cluster\_endpoint |
 | cluster\_name | value of the cluster\_name |
 | cluster\_version | value of the cluster\_version |
+| eks\_users | n/a |
 | region | value of the region |

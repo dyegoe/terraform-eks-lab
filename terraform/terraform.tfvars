@@ -74,5 +74,4 @@ eks_user_policies = {
 eks_users = [
   { name = "admin", policies = ["admin"], k8s_groups = ["system:master"] },
   { name = "readonly", policies = ["readonly"], k8s_groups = ["system:readonly"] },
-  { name = "test", policies = ["admin", "readonly"], k8s_groups = ["system:master", "system:readonly"] },
 ]
