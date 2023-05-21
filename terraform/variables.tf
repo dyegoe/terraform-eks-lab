@@ -64,20 +64,10 @@ variable "eks" {
 
 variable "eks_managed_node_groups" {
   type = object({
-    defaults = object({
-      instance_types = list(string)
-    })
-    nodes = list(object({
-      name           = string
-      instance_types = optional(list(string))
-      min_size       = optional(number)
-      max_size       = optional(number)
-      desired_size   = optional(number)
-      capacity_type  = optional(string)
-      tags           = optional(map(string))
-    }))
+    defaults = any
+    nodes    = any
   })
-  description = "A list of objects containing EKS node group information. Tags are applied to all resources for the EKS node group."
+  description = "A object containing EKS managed node group information. `defaults` and `nodes` are objects. The `defaults` are applied to all node groups. The `nodes` key is used as name if name is not provided."
 }
 
 variable "eks_user_policies" {

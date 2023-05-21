@@ -7,6 +7,7 @@ Terraform EKS Lab is a project to create a lab environment for learning EKS.
 ### Requirements
 
 - [Terraform](https://www.terraform.io/downloads.html) >= 1.4.6
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) >= 2.2.44
 - [Kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) >= 1.26 (or version that matches the EKS version)
 
 ### Setup

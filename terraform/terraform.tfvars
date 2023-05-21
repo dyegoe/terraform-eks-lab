@@ -31,20 +31,19 @@ eks = {
 
 eks_managed_node_groups = {
   defaults = {
+    ami_type       = "AL2_x86_64"
     instance_types = ["t3.small"]
-  }
-  nodes = [
-    {
-      name          = "nodes"
-      min_size      = 1
-      max_size      = 3
-      desired_size  = 1
-      capacity_type = "SPOT"
-      tags = {
-        example = "true"
-      }
+    min_size       = 1
+    max_size       = 3
+    desired_size   = 1
+    capacity_type  = "SPOT"
+    iam_role_additional_policies = {
+      AmazonSSMManagedInstanceCore = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
     }
-  ]
+  }
+  nodes = {
+    work-node = {}
+  }
 }
 
 eks_user_policies = {
