@@ -13,7 +13,7 @@ Terraform EKS Lab is a project to create a lab environment for learning EKS.
 ### Setup
 
 ```bash
-cd terraform/
+cd eks-cluster/
 terraform init
 terraform apply
 ```
