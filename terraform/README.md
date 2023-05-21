@@ -20,6 +20,7 @@ It will also create a VPC with public and private subnets across multiple availa
 
 | Name | Source | Version |
 |------|--------|---------|
+| ebs\_csi\_irsa\_role | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | ~> 5.19.0 |
 | eks | terraform-aws-modules/eks/aws | ~> 19.14.0 |
 | vpc | terraform-aws-modules/vpc/aws | 4.0.2 |
 

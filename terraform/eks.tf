@@ -6,6 +6,17 @@ module "eks" {
   cluster_version                 = var.eks.cluster_version
   cluster_endpoint_private_access = var.eks.cluster_endpoint_private_access
   cluster_endpoint_public_access  = var.eks.cluster_endpoint_public_access
+  cluster_addons = {
+    # vpc-cni is automatically added
+    # coredns is automatically added
+    # kube-proxy is automatically added
+    aws-ebs-csi-driver = {
+      most_recent              = true
+      service_account_role_arn = module.ebs_csi_irsa_role.iam_role_arn
+    }
+  }
+
+  enable_irsa = true
 
   vpc_id     = module.vpc.vpc_id
   subnet_ids = module.vpc.private_subnets
