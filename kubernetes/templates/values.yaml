@@ -1,3 +1,5 @@
+atlantisUrl: https://${ingress_alb_hostname}
+
 orgAllowlist: ${org_allowlist}
 logLevel: ${log_level}
 
