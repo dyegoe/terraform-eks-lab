@@ -1,0 +1,157 @@
+orgAllowlist: ${org_allowlist}
+logLevel: ${log_level}
+
+github:
+  user: ${github_user}
+  token: ${github_token}
+  secret: ${github_secret}
+
+aws: {}
+
+image:
+  repository: ghcr.io/runatlantis/atlantis
+  tag: ""
+  pullPolicy: Always
+
+allowForkPRs: false
+allowDraftPRs: false
+hidePrevPlanComments: false
+defaultTFVersion: 1.4.6
+disableApply: false
+disableApplyAll: false
+disableRepoLocking: false
+enableDiffMarkdownFormat: false
+
+basicAuth:
+  username: ${basic_auth_username}
+  password: ${basic_auth_password}
+
+commonLabels:
+  atlantis: "true"
+
+livenessProbe:
+  enabled: true
+  periodSeconds: 60
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+  scheme: HTTP
+readinessProbe:
+  enabled: true
+  periodSeconds: 60
+  initialDelaySeconds: 5
+  timeoutSeconds: 5
+  successThreshold: 1
+  failureThreshold: 5
+  scheme: HTTP
+
+service:
+  type: NodePort
+  port: 80
+  targetPort: 4141
+  loadBalancerIP: null
+
+podTemplate:
+  annotations: {}
+  labels: {}
+
+statefulSet:
+  annotations: {}
+  labels: {}
+  securityContext:
+    fsGroup: 1000
+    runAsUser: 100
+    fsGroupChangePolicy: "OnRootMismatch"
+  priorityClassName: ""
+  updateStrategy: {}
+  shareProcessNamespace: false
+
+ingress:
+  enabled: true
+  ingressClassName: "alb"
+  apiVersion: "networking.k8s.io/v1"
+  annotations:
+    alb.ingress.kubernetes.io/scheme: ${ingress_alb_scheme}
+    alb.ingress.kubernetes.io/certificate-arn: ${ingress_alb_certificate_arn}
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    external-dns.alpha.kubernetes.io/hostname: ${ingress_alb_hostname}
+  paths:
+    - path: /
+      service: atlantis
+      port: 80
+  pathType: Prefix
+  host:
+  hosts:
+  tls: []
+  labels: {}
+
+resources:
+  requests:
+    memory: ${resource_memory}
+    cpu: ${resource_cpu}
+  limits:
+    memory: ${resource_memory}
+    cpu: ${resource_cpu}
+
+volumeClaim:
+  enabled: true
+  dataStorage: ${volume_claim_data_storage}
+  storageClassName: gp2
+
+replicaCount: 1
+
+test:
+  enabled: true
+  image: lachlanevenson/k8s-kubectl
+  imageTag: v1.4.8-bash
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+topologySpreadConstraints: []
+
+serviceAccount:
+  create: true
+  mount: true
+  name:
+  annotations:
+    eks.amazonaws.com/role-arn: "${atlantis_irsa_role}"
+
+enableKubernetesBackend: false
+
+environment: {}
+environmentSecrets: []
+environmentRaw: []
+loadEnvFromSecrets: []
+loadEnvFromConfigMaps: []
+googleServiceAccountSecrets: []
+extraVolumes: []
+extraVolumeMounts: []
+extraManifests: []
+initContainers: []
+extraArgs: []
+extraContainers: []
+containerSecurityContext: {}
+
+servicemonitor:
+  enabled: false
+  interval: "30s"
+  auth:
+    basicAuth:
+      enabled: false
+    externalSecret:
+      enabled: false
+      name: atlantis-env
+      keys:
+        username: USERNAME
+        password: ATLANTIS_WEB_PASSWORD
+
+podMonitor:
+  enabled: false
+  interval: "30s"
+
+redis: {}
+lifecycle: {}

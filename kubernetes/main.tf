@@ -7,8 +7,7 @@
 terraform {
   required_version = "~> 1.4.0"
   required_providers {
-    aws = "~> 4.67"
-    # kubernetes = "~> 2.0"
+    aws  = "~> 4.67"
     helm = "~> 2.9"
   }
 }
@@ -22,16 +21,6 @@ provider "aws" {
       local.project.default_tags,
       { Project = local.project.name }
     )
-  }
-}
-
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.this.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.this.certificate_authority.0.data)
-  exec {
-    api_version = "client.authentication.k8s.io/v1beta1"
-    command     = "aws"
-    args        = ["eks", "get-token", "--cluster-name", data.aws_eks_cluster.this.name]
   }
 }
 
@@ -55,7 +44,7 @@ data "aws_eks_cluster_auth" "this" { name = local.cluster_name }
 
 data "aws_route53_zone" "project" { name = local.project.zone_name }
 
-data "aws_iam_policy" "administrator_access" { name = "AdministratorAccess" }
+data "aws_iam_policy" "system_administrator" { name = "SystemAdministrator" }
 
 ##### Locals
 locals {
@@ -68,5 +57,6 @@ locals {
   cluster_version                    = data.terraform_remote_state.eks_cluster.outputs.cluster_version
   eks_users                          = data.terraform_remote_state.eks_cluster.outputs.eks_users
   project                            = data.terraform_remote_state.eks_cluster.outputs.project
+  project_zone_ssl_cert_arn          = data.terraform_remote_state.eks_cluster.outputs.project_zone_ssl_cert_arn
   resource_prefix                    = data.terraform_remote_state.eks_cluster.outputs.resource_prefix
 }
