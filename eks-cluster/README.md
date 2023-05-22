@@ -21,6 +21,7 @@ It will also create a VPC with public and private subnets across multiple availa
 
 | Name | Source | Version |
 |------|--------|---------|
+| acm | terraform-aws-modules/acm/aws | ~> 4.3 |
 | ebs\_csi\_irsa\_role | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | ~> 5.19 |
 | eks | terraform-aws-modules/eks/aws | ~> 19.0 |
 | vpc | terraform-aws-modules/vpc/aws | ~> 4.0 |
@@ -60,5 +61,6 @@ It will also create a VPC with public and private subnets across multiple availa
 | cluster\_version | EKS cluster version |
 | eks\_users | list of eks users and their arns |
 | project | project information |
+| project\_zone\_ssl\_cert\_arn | project zone ssl cert arn |
 | resource\_prefix | resource prefix |
 | update\_kubeconfig | the command to update the kubeconfig |
