@@ -2,12 +2,13 @@ provider "aws" {
   region = "eu-north-1"
 }
 
-resource "aws_ssm_parameter" "secrets" {
-  name  = "testingAtlantis"
-  type  = "String"
-  value = "This is a secret"
-
-  tags = {
-    Name = "testingAtlantis"
+data "aws_instance" "eks_instances" {
+  filter {
+    name   = "tag:eks:cluster-name"
+    values = ["my-lab-eun1-1-eks"]
   }
+}
+
+output "instances" {
+  value = data.aws_instance.eks_instances
 }

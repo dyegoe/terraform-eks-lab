@@ -16,7 +16,6 @@ No modules.
 
 | Name | Type |
 |------|------|
-| [aws_ssm_parameter.secrets](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ssm_parameter) | resource |
 
 ## Inputs
 
@@ -24,4 +23,6 @@ No inputs.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| instances | n/a |
