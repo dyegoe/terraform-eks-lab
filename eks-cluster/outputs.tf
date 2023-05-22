@@ -48,6 +48,11 @@ output "project" {
   description = "project information"
 }
 
+output "project_zone_ssl_cert_arn" {
+  value       = module.acm.acm_certificate_arn
+  description = "project zone ssl cert arn"
+}
+
 output "resource_prefix" {
   value       = local.resource_prefix
   description = "resource prefix"
