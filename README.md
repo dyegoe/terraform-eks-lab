@@ -30,6 +30,7 @@ This project is used to deploy an EKS cluster and some Kubernetes resources to i
 - RBAC roles
 - It is a temporary lab, so there is no restriction to access the resources. In a production environment, the access should be restricted to the necessary users and networks
 - This Terraform uses S3 remote state, so you need to provide the information in the `main.tf` file of each directory
+- EKS cluster uses `t3.small` instances, it is not enought to deploy all componentes, so the cluster autoscaler is used to add more nodes when necessary
 - Improvements:
   - Add security groups across the resources to mitigate the risk of exposing the resources to the internet
   - Remove public access from the EKS cluster
