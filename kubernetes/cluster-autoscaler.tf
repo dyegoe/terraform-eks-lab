@@ -22,9 +22,12 @@ resource "helm_release" "cluster_autoscaler" {
 
   values = [
     <<EOF
-    autoDiscovery.clusterName: ${local.cluster_name}
-    rbac.serviceAccount.annotations:
-      eks.amazonaws.com/role-arn: ${module.cluster_autoscaler_irsa_role.iam_role_arn}
+    autoDiscovery:
+      clusterName: ${local.cluster_name}
+    rbac:
+      serviceAccount:
+        annotations:
+          eks.amazonaws.com/role-arn: ${module.cluster_autoscaler_irsa_role.iam_role_arn}
     EOF
   ]
 }
