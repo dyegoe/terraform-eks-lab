@@ -18,7 +18,7 @@ resource "helm_release" "cluster_autoscaler" {
   name       = "cluster-autoscaler"
   namespace  = "kube-system"
   repository = "https://kubernetes.github.io/autoscaler"
-  chart      = "cluster-autoscaler/cluster-autoscaler"
+  chart      = "cluster-autoscaler"
 
   values = [
     <<EOF
