@@ -7,6 +7,12 @@
  */
 
 terraform {
+  backend "s3" {
+    bucket = "dyego-terraform"
+    key    = "terraform-eks-lab/eks-cluster/terraform.tfstate"
+    region = "us-east-1"
+  }
+
   required_version = "~> 1.4.0"
   required_providers {
     aws        = "~> 4.67"
