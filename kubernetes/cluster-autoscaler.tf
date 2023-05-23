@@ -1,4 +1,6 @@
 module "cluster_autoscaler_irsa_role" {
+  count = var.deploy.cluster_autoscaler ? 1 : 0
+
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.19"
 
@@ -15,6 +17,8 @@ module "cluster_autoscaler_irsa_role" {
 }
 
 resource "helm_release" "cluster_autoscaler" {
+  count = var.deploy.cluster_autoscaler ? 1 : 0
+
   name       = "cluster-autoscaler"
   namespace  = "kube-system"
   repository = "https://kubernetes.github.io/autoscaler"
@@ -29,7 +33,7 @@ resource "helm_release" "cluster_autoscaler" {
       serviceAccount:
         name: cluster-autoscaler
         annotations:
-          eks.amazonaws.com/role-arn: ${module.cluster_autoscaler_irsa_role.iam_role_arn}
+          eks.amazonaws.com/role-arn: ${module.cluster_autoscaler_irsa_role[0].iam_role_arn}
     EOF
   ]
 }

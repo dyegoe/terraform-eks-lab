@@ -5,6 +5,12 @@
 **/
 
 terraform {
+  backend "s3" {
+    bucket = "dyego-terraform"
+    key    = "terraform-eks-lab/kubernetes/terraform.tfstate"
+    region = "us-east-1"
+  }
+
   required_version = "~> 1.4.0"
   required_providers {
     aws  = "~> 4.67"
@@ -34,8 +40,13 @@ provider "helm" {
 
 ##### Data Sources
 data "terraform_remote_state" "eks_cluster" {
-  backend = "local"
-  config  = { path = "../eks-cluster/terraform.tfstate" }
+  backend = "s3"
+
+  config = {
+    bucket = "dyego-terraform"
+    key    = "terraform-eks-lab/eks-cluster/terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 
 data "aws_eks_cluster" "this" { name = local.cluster_name }

@@ -1,4 +1,6 @@
 module "atlantis_irsa_role" {
+  count = var.deploy.atlantis ? 1 : 0
+
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.19"
 
@@ -15,6 +17,8 @@ module "atlantis_irsa_role" {
 }
 
 resource "helm_release" "atlantis" {
+  count = var.deploy.atlantis ? 1 : 0
+
   name       = "atlantis"
   namespace  = "atlantis"
   repository = "https://runatlantis.github.io/helm-charts"
@@ -37,7 +41,7 @@ resource "helm_release" "atlantis" {
       resource_memory             = var.atlantis_values.resource.memory
       resource_cpu                = var.atlantis_values.resource.cpu
       volume_claim_data_storage   = var.atlantis_values.volume_claim.data_storage
-      atlantis_irsa_role          = module.atlantis_irsa_role.iam_role_arn
+      atlantis_irsa_role          = module.atlantis_irsa_role[0].iam_role_arn
     })
   ]
 

@@ -95,11 +95,26 @@ You may edit the `main.tf` file to change the S3 remote backend information.
 terraform {
   backend "s3" {
     bucket = "dyego-terraform"
-    key    = "terraform-eks-lab/eks-cluster/terraform.tfstate"
+    key    = "terraform-eks-lab/kubernetes/terraform.tfstate"
     region = "us-east-1"
   }
 
   ...
+}
+```
+
+And since the Kubernetes resources uses the output from the EKS cluster, you need to provide the information in the `main.tf` file. The information must match the S3 backend configuration in the `eks-cluster/main.tf` file.
+
+```terraform
+##### Data Sources
+data "terraform_remote_state" "eks_cluster" {
+  backend = "s3"
+
+  config = {
+    bucket = "dyego-terraform"
+    key    = "terraform-eks-lab/eks-cluster/terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 ```
 

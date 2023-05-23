@@ -1,4 +1,6 @@
 module "external_dns_irsa_role" {
+  count = var.deploy.external_dns ? 1 : 0
+
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.19"
 
@@ -15,6 +17,8 @@ module "external_dns_irsa_role" {
 }
 
 resource "helm_release" "external_dns" {
+  count = var.deploy.external_dns ? 1 : 0
+
   name       = "external-dns"
   namespace  = "kube-system"
   repository = "https://kubernetes-sigs.github.io/external-dns/"
@@ -24,7 +28,7 @@ resource "helm_release" "external_dns" {
     <<EOF
     serviceAccount:
       annotations:
-        eks.amazonaws.com/role-arn: ${module.external_dns_irsa_role.iam_role_arn}
+        eks.amazonaws.com/role-arn: ${module.external_dns_irsa_role[0].iam_role_arn}
     domainFilters:
       - ${local.project.zone_name}
     EOF

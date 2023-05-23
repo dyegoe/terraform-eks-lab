@@ -1,4 +1,6 @@
 module "load_balancer_controller_irsa_role" {
+  count = var.deploy.load_balancer_controller ? 1 : 0
+
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.19"
 
@@ -14,6 +16,8 @@ module "load_balancer_controller_irsa_role" {
 }
 
 resource "helm_release" "aws_load_balancer_controller" {
+  count = var.deploy.load_balancer_controller ? 1 : 0
+
   name       = "aws-load-balancer-controller"
   namespace  = "kube-system"
   repository = "https://aws.github.io/eks-charts"
@@ -26,7 +30,7 @@ resource "helm_release" "aws_load_balancer_controller" {
       create: true
       name: aws-load-balancer-controller
       annotations:
-        eks.amazonaws.com/role-arn: ${module.load_balancer_controller_irsa_role.iam_role_arn}
+        eks.amazonaws.com/role-arn: ${module.load_balancer_controller_irsa_role[0].iam_role_arn}
     YAML
   ]
 }
