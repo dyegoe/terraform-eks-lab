@@ -2,7 +2,7 @@ module "external_dns_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.19"
 
-  role_name                     = "${local.resource_prefix}-${local.cluster_name}-external-dns"
+  role_name                     = "${local.cluster_name}-external-dns" # local.cluster_name already includes the resource_prefix
   attach_external_dns_policy    = true
   external_dns_hosted_zone_arns = [data.aws_route53_zone.project.arn]
 

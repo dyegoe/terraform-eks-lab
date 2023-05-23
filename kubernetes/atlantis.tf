@@ -2,7 +2,7 @@ module "atlantis_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.19"
 
-  role_name = "${local.resource_prefix}-${local.cluster_name}-atlantis"
+  role_name = "${local.cluster_name}-atlantis" # local.cluster_name already includes the resource_prefix
   role_policy_arns = {
     policy = data.aws_iam_policy.system_administrator.arn
   }
@@ -33,7 +33,7 @@ resource "helm_release" "atlantis" {
       basic_auth_password         = var.atlantis_basic_auth.password
       ingress_alb_scheme          = var.atlantis_values.ingress_alb.scheme
       ingress_alb_certificate_arn = local.project_zone_ssl_cert_arn
-      ingress_alb_hostname        = "atlantis.${local.project.zone_name}"
+      ingress_alb_hostname        = local.atlantis_url
       resource_memory             = var.atlantis_values.resource.memory
       resource_cpu                = var.atlantis_values.resource.cpu
       volume_claim_data_storage   = var.atlantis_values.volume_claim.data_storage

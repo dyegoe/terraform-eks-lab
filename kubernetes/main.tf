@@ -48,6 +48,7 @@ data "aws_iam_policy" "system_administrator" { name = "SystemAdministrator" }
 
 ##### Locals
 locals {
+  atlantis_url                       = "atlantis.${local.project.zone_name}"
   aws_profile                        = data.terraform_remote_state.eks_cluster.outputs.aws_profile
   aws_region                         = data.terraform_remote_state.eks_cluster.outputs.aws_region
   cluster_certificate_authority_data = data.terraform_remote_state.eks_cluster.outputs.cluster_certificate_authority_data

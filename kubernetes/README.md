@@ -24,6 +24,7 @@ This module is used to deploy Kubernetes resources to an EKS cluster.
 | Name | Source | Version |
 |------|--------|---------|
 | atlantis\_irsa\_role | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | ~> 5.19 |
+| cluster\_autoscaler\_irsa\_role | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | ~> 5.19 |
 | external\_dns\_irsa\_role | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | ~> 5.19 |
 | load\_balancer\_controller\_irsa\_role | terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks | ~> 5.19 |
 
@@ -33,6 +34,7 @@ This module is used to deploy Kubernetes resources to an EKS cluster.
 |------|------|
 | [helm_release.atlantis](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.aws_load_balancer_controller](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
+| [helm_release.cluster_autoscaler](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 | [helm_release.external_dns](https://registry.terraform.io/providers/hashicorp/helm/latest/docs/resources/release) | resource |
 
 ## Inputs
@@ -45,4 +47,6 @@ This module is used to deploy Kubernetes resources to an EKS cluster.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| atlantis\_url | The URL for Atlantis |
