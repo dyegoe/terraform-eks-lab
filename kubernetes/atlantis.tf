@@ -43,6 +43,7 @@ resource "helm_release" "atlantis" {
 
   depends_on = [
     helm_release.aws_load_balancer_controller,
+    helm_release.cluster_autoscaler,
     helm_release.external_dns
   ]
 }
