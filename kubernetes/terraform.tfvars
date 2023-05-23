@@ -12,3 +12,10 @@ atlantis_values = {
     scheme = "internet-facing"
   }
 }
+
+deploy = {
+  atlantis                 = true
+  cluster_autoscaler       = true
+  external_dns             = true
+  load_balancer_controller = true
+}

@@ -43,6 +43,7 @@ This module is used to deploy Kubernetes resources to an EKS cluster.
 |------|-------------|------|---------|:--------:|
 | atlantis\_basic\_auth | Basic auth credentials for Atlantis | ```object({ username = string password = string })``` | n/a | yes |
 | atlantis\_values | Atlantis Helm chart values | ```object({ org_allowlist = string log_level = string ingress_alb = object({ scheme = string }) resource = object({ memory = string cpu = string }) volume_claim = object({ data_storage = string }) })``` | n/a | yes |
+| deploy | Which Helm charts to deploy | ```object({ atlantis = bool cluster_autoscaler = bool external_dns = bool load_balancer_controller = bool })``` | ```{ "atlantis": false, "cluster_autoscaler": false, "external_dns": false, "load_balancer_controller": false }``` | no |
 | github | GitHub credentials for Atlantis | ```object({ user = string token = string secret = string })``` | n/a | yes |
 
 ## Outputs

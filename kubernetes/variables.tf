@@ -32,3 +32,19 @@ variable "atlantis_values" {
   })
   description = "Atlantis Helm chart values"
 }
+
+variable "deploy" {
+  type = object({
+    atlantis                 = bool
+    cluster_autoscaler       = bool
+    external_dns             = bool
+    load_balancer_controller = bool
+  })
+  default = {
+    atlantis                 = false
+    cluster_autoscaler       = false
+    external_dns             = false
+    load_balancer_controller = false
+  }
+  description = "Which Helm charts to deploy"
+}
