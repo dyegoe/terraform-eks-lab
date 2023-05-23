@@ -9,9 +9,19 @@ Terraform EKS Lab is a project to create a lab environment for learning EKS.
 - [Terraform](https://www.terraform.io/downloads.html) >= 1.4.6
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) >= 2.2.44
 - [Kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) >= 1.26 (or version that matches the EKS version)
-- An AWS account with permissions to create the resources
+- An AWS account with permissions to create the resources and proper credentials configured using one of the [AWS CLI methods](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+- A zone in Route53 to create the DNS records. You need to provide the zone name in the `terraform.tfvars` file
+- GitHub account properly configured to clone the repository (SSH key or username/password)
+- GitHub personal token with the permissions as described [here](https://www.runatlantis.io/docs/access-credentials.html#github-user)
 
 ### Setup
+
+Clone the repository:
+
+```bash
+git clone git@github.com:dyegoe/terraform-eks-lab.git
+cd terraform-eks-lab/
+```
 
 To deploy the main resources, run the following commands:
 
@@ -99,6 +109,7 @@ go install github.com/terraform-docs/terraform-docs@v0.16.0
 
 ## Improvements
 
+- Add remote state file
 - Add security groups across the resources
 
 ## Author

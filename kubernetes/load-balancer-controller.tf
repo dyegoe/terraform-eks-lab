@@ -2,7 +2,7 @@ module "load_balancer_controller_irsa_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "~> 5.19"
 
-  role_name                              = "${local.resource_prefix}-${local.cluster_name}-load-balancer-controller"
+  role_name                              = "${local.cluster_name}-load-balancer-controller" # local.cluster_name already includes the resource_prefix
   attach_load_balancer_controller_policy = true
 
   oidc_providers = {
