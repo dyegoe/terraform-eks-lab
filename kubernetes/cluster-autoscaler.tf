@@ -22,6 +22,7 @@ resource "helm_release" "cluster_autoscaler" {
 
   values = [
     <<EOF
+    awsRegion: ${local.aws_region}
     autoDiscovery:
       clusterName: ${local.cluster_name}
     rbac:
