@@ -26,6 +26,7 @@ resource "helm_release" "cluster_autoscaler" {
       clusterName: ${local.cluster_name}
     rbac:
       serviceAccount:
+        name: cluster-autoscaler
         annotations:
           eks.amazonaws.com/role-arn: ${module.cluster_autoscaler_irsa_role.iam_role_arn}
     EOF
